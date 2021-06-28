@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: stats-front
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "3000:3000"
