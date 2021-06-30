@@ -58,7 +58,14 @@ export default defineComponent({
     },
     deleteStats(stats){
       http.delete('/statistics/' + stats.id).then(()=>{
+        this.$toast.add({severity:'success', summary: 'Statystyka usunieta', life: 5000})
         this.statistics = this.statistics.filter(v => v.id != stats.id)
+      }).catch( e => {
+        if(!e.response || e.response.status != 404 ){
+          this.$toast.add({severity:'error', summary: 'Nie można usunąć statystyki', detail : "Wystapił błąd podczas usuwania statystyki", life: 5000})
+        }else{
+          this.$toast.add({severity:'error', summary: 'Wystapił błąd podczas usuwania statystyki', detail : "Statystyka nie istnieje", life: 5000})
+        }
       })
     }
   }
